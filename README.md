@@ -1,75 +1,46 @@
-# React + TypeScript + Vite
+# KindHeart Foundation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A student-built nonprofit website concept (React 19 + TypeScript + Vite) with a real Stripe card checkout running in **test mode**. No real money is ever charged.
 
-Currently, two official plugins are available:
+## Stack
+- React 19, React Router 7, TypeScript, Vite
+- `@stripe/react-stripe-js` + `@stripe/stripe-js` (Payment Element)
+- `stripe` (Node SDK) inside a Vercel serverless function: `api/create-payment-intent.ts`
+- `lucide-react` icons, Bricolage Grotesque + Figtree (Google Fonts)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 1. Get Stripe test keys (free)
+1. Create an account at https://dashboard.stripe.com and stay in **Test mode**.
+2. Developers -> API keys -> copy the **Publishable key** (`pk_test_...`) and **Secret key** (`sk_test_...`).
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+## 2. Run locally
+```bash
+npm install
+cp .env.example .env.local      # paste both keys into .env.local
+npm i -g vercel                 # once
+vercel dev                      # runs the site AND /api together
 ```
+Plain `npm run dev` shows the site, but `/api/create-payment-intent` only exists under `vercel dev` or on Vercel.
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## 3. Deploy to Vercel
+1. Push the repo to GitHub.
+2. Vercel -> Add New Project -> import the repo (preset: Vite).
+3. Settings -> Environment Variables: add `VITE_STRIPE_PUBLISHABLE_KEY` and `STRIPE_SECRET_KEY` (Production + Preview).
+4. Deploy. `vercel.json` makes `/about` work on refresh.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Test cards
+| Result | Card number |
+|---|---|
+| Success | 4242 4242 4242 4242 |
+| Declined | 4000 0000 0000 0002 |
+| 3-D Secure | 4000 0025 0000 3155 |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Use any future expiry and any 3-digit CVC.
 
-```
+## Photos
+Put real photos in `src/assets/photos/` named `hero`, `food`, `education`, `outreach`, `family`, `about` (`.jpg`, `.png`, or `.webp`). Missing files fall back to drawn illustrations. Update the `alt` text in `src/pages/Home.tsx` and `About.tsx` to describe your actual photos.
+
+## Notes
+- The secret key lives only on the server. Never prefix it with `VITE_`.
+- The server re-validates amount (whole pesos, PHP 20 to 100,000), fund, and email.
+- Stripe does not officially support Philippine business accounts. Test mode works for demos; real PH payouts would need a supported account or another provider (e.g. PayMongo).
+- The volunteer form is a front-end demo: nothing is sent or stored.
