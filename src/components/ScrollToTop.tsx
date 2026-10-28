@@ -6,13 +6,13 @@ export default function ScrollToTop() {
 
   useEffect(() => {
     if (hash) {
-      const el = document.getElementById(hash.slice(1));
+      const el = document.getElementById(decodeURIComponent(hash.slice(1)));
       if (el) {
         el.scrollIntoView();
         return;
       }
     }
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, [pathname, hash]);
 
   return null;

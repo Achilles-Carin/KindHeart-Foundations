@@ -1,55 +1,72 @@
-import { useState } from 'react';
+import {
+  BookOpen,
+  Eye,
+  Handshake,
+  HandHeart,
+  Heart,
+  Lightbulb,
+  ShieldCheck,
+  Target,
+  Users,
+  UsersRound,
+  Sprout,
+  HeartHandshake,
+  Sparkles,
+  Store,
+} from 'lucide-react';
+import { LinkButton } from '../components/Button';
 import Photo from '../components/Photo';
-import DonateForm from '../components/DonateForm';
-import JoinForm, { type Member } from '../components/JoinForm';
+import SectionHeading from '../components/SectionHeading';
 import portrait from '../assets/Smiling Young Man in Black Suit.png';
 
 const profile = {
-  name: '',
-  course: '',
-  interests: '',
-  reason: '',
+  name: 'Achilles Charlemagne B. Carin',
+  course: 'BSIT 3B',
+  interests: 'Web development, UI design, and learning how technology can support community causes.',
+  reason:
+    'A charity site only works if visitors trust it within seconds. I chose this concept because it pushed me to design for that trust: honest wording, a donation form that is easy to follow, and a layout that works on any phone.',
 };
 
 const values = [
+  { icon: Heart, title: 'Compassion', text: 'We start by listening and paying attention to what people actually need.' },
+  { icon: ShieldCheck, title: 'Integrity', text: 'We say what we do and do what we say, even when it is less impressive.' },
+  { icon: UsersRound, title: 'Inclusion', text: 'Help is open to everyone, and our programs are designed so no one is left out.' },
+  { icon: Lightbulb, title: 'Accountability', text: 'We account for every gift and every drive, and we share the result openly.' },
+  { icon: Handshake, title: 'Collaboration', text: 'We work with neighbors, schools, and local groups instead of around them.' },
+  { icon: Sprout, title: 'Empowerment', text: 'We aim to build skills and confidence so families can lead their own progress.' },
+];
+
+const approach = [
   {
-    title: 'Compassion',
-    text: 'We begin by listening and paying attention to what people actually need.',
+    icon: BookOpen,
+    title: 'Education',
+    text: 'Learning materials and tutoring support, so a lack of supplies never decides how far a child can go.',
   },
   {
-    title: 'Respect',
-    text: 'Everyone we help is a neighbor with dignity, and every offer of help should honor that.',
+    icon: HeartHandshake,
+    title: 'Essential resources',
+    text: 'Food and basic necessities shared through drives and pantries, planned with the people who receive them.',
   },
   {
-    title: 'Responsibility',
-    text: 'Good intentions need follow-through. We commit to using resources carefully and being honest about what we can do.',
+    icon: Store,
+    title: 'Partnerships',
+    text: 'Working with schools, barangay groups, and organizations already serving the community.',
   },
   {
-    title: 'Community',
-    text: 'Lasting change grows when neighbors, families, students, and volunteers work side by side.',
+    icon: Users,
+    title: 'Volunteer participation',
+    text: 'Clear, simple ways for people to give time, with enough coordination that their effort counts.',
   },
 ];
 
-const actions = [
-  {
-    title: 'Share a meal',
-    text: 'Organize or join a food-sharing drive in your barangay, school, or workplace.',
-  },
-  {
-    title: 'Give learning materials',
-    text: 'Gather notebooks, pencils, and books for children who need them.',
-  },
-  {
-    title: 'Volunteer your time',
-    text: 'Offer a few hours to a local group doing outreach near you.',
-  },
+const roles = [
+  { title: 'Volunteers', text: 'Pack, tutor, and show up. Their time is the engine of every drive.' },
+  { title: 'Donors', text: 'Give once or give again. Gifts fund supplies that volunteers cannot make themselves.' },
+  { title: 'Community partners', text: 'Schools and local groups tell us what is needed and help us reach the right people.' },
+  { title: 'Neighbors and local leaders', text: 'They know their community best, and they shape what we do next.' },
 ];
-
-const placeholder = 'Add this in src/pages/About.tsx';
 
 export default function About() {
-  const [member, setMember] = useState<Member>(null);
-
   const fields: [string, string][] = [
     ['Name', profile.name],
     ['Course', profile.course],
@@ -59,162 +76,147 @@ export default function About() {
 
   return (
     <>
-      <section className="hero">
+      <section className="hero" aria-labelledby="about-title">
         <div className="container hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow">ABOUT KINDHEART</p>
-            <h1>A Little Kindness Goes a Long Way.</h1>
+            <h1 id="about-title">A community united by hope.</h1>
             <p className="lead">
-              KindHeart is a nonprofit website concept built around the belief that
-              compassion and community action can help create a better future.
+              KindHeart began as a question: what would a nonprofit built on everyday generosity look like? This page
+              explains what we believe, how we would work, and who made this project.
             </p>
+            <div className="hero-actions">
+              <LinkButton to="/#donate" variant="accent">
+                Donate Now
+              </LinkButton>
+              <LinkButton to="/#volunteer" variant="outline">
+                Volunteer
+              </LinkButton>
+            </div>
           </div>
-          <Photo
-            name="outreach"
-            priority
-            className="hero-photo"
-            alt="Volunteers working together in a community"
-          />
+          <Photo name="about" priority className="hero-photo" alt="Neighbors working together for their community" />
         </div>
       </section>
 
-      <section className="section section-tint">
+      <section id="story" className="section section-tint" aria-labelledby="story-title">
         <div className="container split">
-          <h2>Our Story</h2>
+          <SectionHeading id="story-title" title="Our story" />
           <div className="prose">
             <p>
-              KindHeart began as an exercise in imagining what a nonprofit built on everyday
-              generosity could look like. Many families in underserved communities across the
-              Philippines struggle to put regular meals on the table, children go without
-              school supplies, and neighbors who want to help often do not know where to start.
+              Across the Philippines, many families in underserved communities struggle to put regular meals on the
+              table. Children go without notebooks and pencils. Neighbors who want to help often do not know where to
+              start.
             </p>
             <p>
-              The concept brings three kinds of action together: food assistance, education
-              support, and volunteer service. Each one is a way for ordinary people to give
-              something small that adds up to something meaningful for a family or a child.
+              KindHeart brings three kinds of action together: food assistance, education support, and volunteer
+              service. Each one lets ordinary people give something small that adds up to something meaningful for a
+              family or a child.
             </p>
             <p>
-              KindHeart is a concept created for a school project. It is not a registered
-              organization and does not collect donations or run real programs. Its purpose
-              is to show how a clear, welcoming website can invite people toward kindness.
+              To be clear about what this is: KindHeart is a concept created for a school project. It is not a
+              registered organization and does not run real programs. Its payments use Stripe test mode, so no real
+              money moves. Its purpose is to show how a clear, welcoming website can invite people toward kindness.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="section">
+      <section className="section section-plain" aria-label="Mission and vision">
         <div className="container duo">
-          <article className="panel panel-green">
-            <h2>Our Mission</h2>
+          <article className="panel panel-mission">
+            <Target size={32} aria-hidden="true" />
+            <h2 className="panel-title">Our mission</h2>
             <p>
-              To encourage community support through food assistance, educational
-              opportunities, and meaningful acts of service.
+              To support underserved communities through educational opportunities, essential resources, and
+              community-led programs.
             </p>
           </article>
-          <article className="panel panel-sand">
-            <h2>Our Vision</h2>
+          <article className="panel panel-vision">
+            <Eye size={32} aria-hidden="true" />
+            <h2 className="panel-title">Our vision</h2>
             <p>
-              A future where every family has access to basic needs and every child has the
-              opportunity to learn and grow.
+              A future where every individual has access to opportunities, dignity, and the resources needed to thrive.
             </p>
           </article>
         </div>
       </section>
 
-      <section className="section section-tint">
+      <section id="values" className="section section-tint" aria-labelledby="values-title">
         <div className="container">
-          <header className="section-head">
-            <p className="eyebrow">WHAT GUIDES US</p>
-            <h2>Our Core Values</h2>
-          </header>
-          <div className="values">
-            {values.map((v, i) => (
-              <article className="value" key={v.title}>
-                <span className="value-index">0{i + 1}</span>
-                <h3>{v.title}</h3>
-                <p>{v.text}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="get-involved" className="section">
-        <div className="container split">
-          <div>
-            <h2>Get Involved</h2>
-            <p className="muted-note">
-              KindHeart is a concept, so these are ideas you can carry out with local
-              organizations in your own community.
-            </p>
-          </div>
-          <ul className="actions">
-            {actions.map((a) => (
-              <li key={a.title}>
-                <h3>{a.title}</h3>
-                <p>{a.text}</p>
+          <SectionHeading id="values-title" title="What guides our work">
+            Six values shape how KindHeart would plan, spend, and speak.
+          </SectionHeading>
+          <ul className="values">
+            {values.map(({ icon: Icon, title, text }) => (
+              <li key={title}>
+                <Icon size={26} aria-hidden="true" />
+                <h3>{title}</h3>
+                <p>{text}</p>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <section id="donate" className="section section-tint">
+      <section id="approach" className="section section-plain" aria-labelledby="approach-title">
         <div className="container split">
-          <div>
-            <p className="eyebrow">GIVE</p>
-            <h2>Make a Donation</h2>
-            <p className="muted-note">
-              Give anonymously, or join the community and give as a member. Every amount
-              counts, and you choose where your gift goes.
-            </p>
-          </div>
-          <DonateForm member={member} />
+          <SectionHeading id="approach-title" title="Our approach">
+            We aim to support communities through four channels. In every one, we put dignity, transparency, and
+            collaboration ahead of big promises.
+          </SectionHeading>
+          <ul className="principles">
+            {approach.map(({ icon: Icon, title, text }) => (
+              <li key={title}>
+                <Icon size={26} aria-hidden="true" />
+                <div>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      <section id="join" className="section">
-        <div className="container split">
-          <div>
-            <p className="eyebrow">JOIN US</p>
-            <h2>Become a Member</h2>
-            <p className="muted-note">
-              Sign up to be part of a community that cares. Members can give under their own
-              name and choose the kind of help they want to offer.
-            </p>
-          </div>
-          <JoinForm member={member} onJoin={setMember} />
-        </div>
-      </section>
-
-            <section id="about-me" className="section section-tint">
+      <section id="people" className="section section-tint" aria-labelledby="people-title">
         <div className="container">
-          <header className="section-head">
-            <p className="eyebrow">THE CREATOR</p>
-            <h2>About Me</h2>
-          </header>
+          <SectionHeading id="people-title" title="The people behind the mission">
+            KindHeart has no staff roster to introduce. A mission like this is carried by the people who take part, so
+            here are the roles that matter most. If KindHeart ever became a real organization, its team would be
+            introduced here.
+          </SectionHeading>
+          <dl className="roles">
+            {roles.map((r) => (
+              <div key={r.title}>
+                <dt>
+                  <HandHeart size={22} aria-hidden="true" />
+                  {r.title}
+                </dt>
+                <dd>{r.text}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
 
+      <section id="creator" className="section section-plain" aria-labelledby="creator-title">
+        <div className="container">
+          <SectionHeading id="creator-title" title="About the creator" />
           <div className="about-me">
             <figure className="portrait">
               <img
                 src={portrait}
-                alt={
-                  profile.name
-                    ? `Portrait of ${profile.name}, creator of this website`
-                    : 'Portrait of the creator of this website'
-                }
+                alt={`Portrait of ${profile.name}, creator of this website`}
                 width={640}
                 height={800}
                 loading="lazy"
                 decoding="async"
               />
             </figure>
-
             <dl className="profile">
               {fields.map(([label, value]) => (
                 <div className="profile-row" key={label}>
                   <dt>{label}</dt>
-                  <dd className={value ? '' : 'is-empty'}>{value || placeholder}</dd>
+                  <dd>{value}</dd>
                 </div>
               ))}
             </dl>
@@ -222,17 +224,20 @@ export default function About() {
         </div>
       </section>
 
-      <section className="section">
-        <div className="container split">
-          <h2>Website Notice</h2>
-          <div className="prose">
-            <p>
-              This website is a student project and a work of fiction. KindHeart Foundation
-              is not a real charity, does not accept money or personal information, and makes
-              no claims about donations or beneficiaries. Photographs are used for
-              illustration only. By browsing this site you agree to treat its content as a
-              concept and not as an official appeal for funds.
-            </p>
+      <section id="join" className="section section-plain" aria-labelledby="join-title">
+        <div className="container">
+          <div className="cta-band on-dark">
+            <Sparkles size={32} aria-hidden="true" />
+            <h2 id="join-title">Join our mission</h2>
+            <p>Give a little, share some time, or just tell a friend. Every kind of help counts.</p>
+            <div className="cta-actions">
+              <LinkButton to="/#donate" variant="accent">
+                Donate Now
+              </LinkButton>
+              <LinkButton to="/#volunteer" variant="light">
+                Volunteer
+              </LinkButton>
+            </div>
           </div>
         </div>
       </section>

@@ -1,15 +1,32 @@
 :root {
-  --cream: #fffaf3;
-  --cream-deep: #f6eedf;
-  --line: #e6dcc9;
-  --green: #285943;
-  --green-dark: #1d4232;
-  --coral: #f07861;
-  --ink: #24352d;
-  --muted: #5f6d64;
-  --radius: 10px;
-  --font-head: 'Manrope', system-ui, sans-serif;
-  --font-body: 'DM Sans', system-ui, sans-serif;
+  /* Color */
+  --paper: #f5f6f1;
+  --surface: #ffffff;
+  --sage: #e6ece1;
+  --sage-deep: #cfdac9;
+  --line: #d3dacd;
+  --ink: #13241b;
+  --muted: #4a5b51;
+  --green: #1f5a40;
+  --green-dark: #153f2d;
+  --mango: #f2b134;
+  --mango-dark: #e29d1b;
+  --rose: #d2455b;
+  --error: #b3261e;
+  --error-bg: #fbeceb;
+  --success: #1f7a4d;
+
+  /* Type */
+  --font-head: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body: 'Figtree', system-ui, sans-serif;
+
+  /* Space and shape */
+  --gutter: clamp(20px, 4vw, 40px);
+  --section-y: clamp(64px, 9vw, 112px);
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-xl: 64px;
+  --header-h: 72px;
 }
 
 *,
@@ -25,33 +42,72 @@ html {
 
 body {
   margin: 0;
-  background: var(--cream);
+  background: var(--paper);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 1.0625rem;
   line-height: 1.65;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   margin: 0;
   font-family: var(--font-head);
-  color: var(--ink);
-  line-height: 1.15;
-  letter-spacing: -0.01em;
+  color: inherit;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
-p { margin: 0; }
-img, svg { display: block; max-width: 100%; }
-a { color: inherit; }
-ul { margin: 0; padding: 0; list-style: none; }
+p {
+  margin: 0;
+}
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+a {
+  color: inherit;
+}
+ul,
+ol,
+dl,
+dd {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 
 :focus-visible {
-  outline: 3px solid var(--coral);
+  outline: 3px solid var(--green);
   outline-offset: 3px;
+}
+.on-dark :focus-visible,
+.site-footer :focus-visible {
+  outline-color: var(--mango);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  * { transition: none !important; }
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
 }
